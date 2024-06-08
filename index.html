@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>8Club Social Connect Basic</title>
+  </head>
+  <body>
+    <h1>8Club Social Connect Basic</h1>
+    <script>
+      var url = new URL(window.location.href);
+
+      var clientId = url.searchParams.get("client_id");
+      var code = url.searchParams.get("code");
+
+      var redirectUri = url.origin + url.pathname;
+      var instagramAuthUrl = `https://api.instagram.com/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&scope=user_profile,user_media&response_type=code`;
+
+      var aTag = document.createElement("a");
+      aTag.href = instagramAuthUrl;
+      aTag.textContent = "Login with Instagram";
+
+      document.body.appendChild(aTag);
+      if (code) {
+        var codeTag = document.createElement("p");
+        codeTag.textContent = `Code: ${code}`;
+        document.body.appendChild(codeTag);
+      }
+    </script>
+  </body>
+</html>
